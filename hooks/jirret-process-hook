@@ -92,7 +92,7 @@ def updateTicket(what, id, hash, url, who, branch):
             exit()
 
         if (len(url) > 0):
-            message += url
+            message += '[' + url + ']'
         if (enable_quotes):
             message += '{quote}'
         message += '\nSubject: ' + subject + '\n'
@@ -108,8 +108,8 @@ def updateTicket(what, id, hash, url, who, branch):
         for i in issues:
             print 'Updating issue: ' + i
             rpc.jira1.addComment(auth, i, message)
-            if len(status) > 0 and len(custom_field) > 0:
-                rpc.jira1.updateIssue(auth, i, {'customfield_' + custom_field: [status]})
+            #if len(status) > 0 and len(custom_field) > 0:
+            #    rpc.jira1.updateIssue(auth, i, {'customfield_' + custom_field: [status]})
 
 
 def main():
@@ -123,7 +123,7 @@ def main():
         exit()
 
     need = ['action=', 'change=', 'change-url=', 'commit=', 'project=', 'branch=', 'uploader=',
-            'patchset=', 'abandoner=', 'reason=', 'submitter=']
+            'patchset=', 'abandoner=', 'reason=', 'submitter=','is-draft=','topic=']
     optlist, args = getopt.getopt(sys.argv[1:], '', need)
     id = url = hash = who = ''
 
